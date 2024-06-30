@@ -22,9 +22,7 @@ export default function Textform(props) {
             props.showAlert("text is clear","success")
         }
         const handelcopy=()=>{
-            var text=document.getElementById("myBox");
-            text.select();
-            navigator.clipboard.writeText(text.value);
+            navigator.clipboard.writeText(text);
             props.showAlert("copy to clipboard","success")
         }
         const handelextraspaces=(event)=>{
@@ -44,21 +42,21 @@ export default function Textform(props) {
   return (
     <>
 <div className="my-3" style={{color: props.mode==='dark'?'white':'#103153'}}>
-<h2>{props.heading}</h2>
-<label for="myBox" className="form-label"></label>
+<h2 className='my-4'>{props.heading}</h2>
+<label htmlFor="myBox" className="form-label"></label>
 <textarea className="form-control" value={text} onChange={handelonchange} 
-style={{backgroundColor:props.mode==='dark'?'gray':'white',color: props.mode==='dark'?'white':'#103153'}} id="myBox" rows="8"></textarea>
-<button className='btn btn-primary my-3 mx-3' onClick={handelUpclick}>Convert to Upercase</button>
-<button className='btn btn-primary my-3 mx-3' onClick={handelLoclick}>Convert to Lowercase</button>
-<button className='btn btn-primary my-3 mx-3' onClick={handelclick}>Clear Text</button>
-<button className='btn btn-primary my-3 mx-3' onClick={handelcopy}>Copy Text</button>
-<button className='btn btn-primary my-3 mx-3' onClick={handelextraspaces}>Remove Extra Spaces</button>
+style={{backgroundColor:props.mode==='dark'?'#13466e':'white',color: props.mode==='dark'?'white':'#103153'}} id="myBox" rows="8"></textarea>
+<button disabled={text.length===0} className='btn btn-primary my-3 mx-3' onClick={handelUpclick}>Convert to Upercase</button>
+<button disabled={text.length===0} className='btn btn-primary my-3 mx-3' onClick={handelLoclick}>Convert to Lowercase</button>
+<button disabled={text.length===0} className='btn btn-primary my-3 mx-3' onClick={handelclick}>Clear Text</button>
+<button disabled={text.length===0} className='btn btn-primary my-3 mx-3' onClick={handelcopy}>Copy Text</button>
+<button disabled={text.length===0} className='btn btn-primary my-3 mx-3' onClick={handelextraspaces}>Remove Extra Spaces</button>
 </div>  
 <div className="container my-3" style={{color: props.mode==='dark'?'white':'#103153'}}>
 
     <h1> Text Summary </h1>
-    <p>{text.split(" ").length} words and {text.length} characters</p>
-    <p>{0.008 * text.split(" ").length} minute read</p>
+    <p>{text.split(/\s+/).filter((element)=>{return element.length!== 0}).length} words and {text.length} characters</p>
+    <p>{0.008 * text.split(" ").filter((element)=>{return element.length!== 0}).length} minute read</p>
     <h3>Preview</h3>
     <p>{text.length>0 ? text :"Enter somthing in textbox above to preview here..."}</p>
 </div>

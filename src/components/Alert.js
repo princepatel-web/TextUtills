@@ -5,8 +5,16 @@ function Alert(props) {
   if (!alert) return null;
 
   return (
-    <div className={`alert alert-${alert.type} alert-dismissible fade show`} role="alert">
-      {alert.msg}
+    <div style={{ height: '50px' }}>
+      {alert && (
+        <div
+          className={`alert alert-${alert.type} alert-dismissible fade show`}
+          role="alert"
+          style={{ height: '100%' }} // Ensure alert div takes the full height
+        >
+          {alert.msg}
+        </div>
+      )}
     </div>
   );
 }
